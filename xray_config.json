@@ -1,0 +1,644 @@
+{
+    "log": {
+        "access": "/var/lib/marzban/access.log",
+        "error": "/var/lib/marzban/error.log",
+        "loglevel": "warning"
+    },
+    "dns": {
+        "servers": [
+            "1.1.1.1",
+            "1.0.0.1",
+            "8.8.8.8",
+            "8.8.4.4"
+        ],
+        "tag": "dns-in"
+    },
+    "routing": {
+        "domainStrategy": "IPIfNonMatch",
+        "rules": [
+            {
+                "type": "field",
+                "protocol": [
+                    "bittorent"
+                ],
+                "outboundTag": "block"
+            },
+            {
+                "type": "field",
+                "inboundTag": [
+                    "dns-in"
+                ],
+                "outboundTag": "dns-out"
+            }
+        ]
+    },
+    "inbounds": [
+        {
+            "tag": "VLESS_REALITY_FALLBACK",
+            "listen": "0.0.0.0",
+            "port": "443",
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "dest": "8004",
+                        "xver": 1
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "reality",
+                "realitySettings": {
+                    "show": false,
+                    "dest": "17017",
+                    "xver": 0,
+                    "serverNames": [
+                        "static-web.prod.vidiocdn.com",
+                        "teams.microsoft.com",
+                        "sb.scorecardresearch.com",
+                        "open.spotify.com",
+                        "www.spotify.com",
+                        "graph.instagram.com",
+                        "sogood.linefriends.com",
+                        "shopee.co.id",
+                        "payment.id.shopee.kr",
+                        "shopee.sg",
+                        "quiz.vidio.com",
+                        "zendesk1.garena.com",
+                        "www.sushiroll.co.id",
+                        "r.koubei.com",
+                        "dlgarenanow-a.akamaihd.net",
+                        "blog.webex.com",
+                        "kh.google.com",
+                        "support.zoom.us",
+                        "zoom.us",
+                        "hwvip.iflix.com",
+                        "pubgmobile.com",
+                        "noice.id",
+                        "free.facebook.com",
+                        "graph.facebook.com",
+                        "ads-interfaces.sc-cdn.net",
+                        "ava.game.naver.com",
+                        "df.game.naver.com",
+                        "token-media-vidio-com.akamaized.net",
+                        "media.fcgk35-1.fna.whatsapp.net",
+                        "mobilemaps.googleapis.com",
+                        "talkgadget.google.com"
+                    ],
+                    "privateKey": "MMX7m0Mj3faUstoEm5NBdegeXkHG6ZB78xzBv2n3ZUA",
+                    "shortIds": [
+                        "4646"
+                    ]
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESS_REALITY_GRPC",
+            "listen": "127.0.0.1",
+            "port": 8004,
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "grpc",
+                "grpcSettings": {
+                    "serviceName": "vless-reality-grpc"
+                },
+                "sockopt": {
+                    "acceptProxyProtocol": true
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESS_TLS",
+            "port": 17017,
+            "protocol": "vless",
+            "settings": {
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "path": "/",
+                        "dest": 8062,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vmess-ws",
+                        "dest": 3002,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vmess-hu",
+                        "dest": 5002,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/trojan-ws",
+                        "dest": 3001,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/trojan-hu",
+                        "dest": 5001,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vless-ws",
+                        "dest": 3003,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vless-hu",
+                        "dest": 5003,
+                        "xver": 1
+                    },
+                    {
+                        "dest": "1997",
+                        "xver": 2
+                    },
+                    {
+                        "alpn": "h2",
+                        "dest": "1998",
+                        "xver": 2
+                    },
+                    {
+                        "alpn": "h2",
+                        "dest": "@trojan-tcp",
+                        "xver": 2
+                    },
+                    {
+                        "path": "/vmess-tcp",
+                        "dest": "@vmess-tcp",
+                        "xver": 2
+                    },
+                    {
+                        "path": "/vless-tcp",
+                        "dest": "@vless-tcp",
+                        "xver": 2
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "tls",
+                "tlsSettings": {
+                    "alpn": [
+                        "h2",
+                        "http/1.1"
+                    ],
+                    "minVersion": "1.2",
+                    "cipherSuites": "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305_SHA256:TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384:TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256:TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+                    "certificates": [
+                        {
+                            "ocspStapling": 3600,
+                            "certificateFile": "/var/lib/marzban/certs/xray.crt",
+                            "keyFile": "/var/lib/marzban/certs/xray.key",
+                            "usage": "encipherment"
+                        }
+                    ]
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "TROJAN_TCP",
+            "listen": "@trojan-tcp",
+            "protocol": "trojan",
+            "settings": {
+                "clients": [],
+                "fallbacks": [
+                    {
+                        "dest": "1998",
+                        "xver": 2
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "none",
+                "tcpSettings": {
+                    "acceptProxyProtocol": true
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "TROJAN_WS",
+            "listen": "127.0.0.1",
+            "port": 3001,
+            "protocol": "trojan",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "path": "/trojan-ws"
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "TROJAN_HU",
+            "listen": "127.0.0.1",
+            "port": 5001,
+            "protocol": "trojan",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "httpupgrade",
+                "security": "none",
+                "httpupgradeSettings": {
+                    "path": "/trojan-hu"
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "TROJAN_GRPC",
+            "listen": "127.0.0.1",
+            "port": 4001,
+            "protocol": "trojan",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "grpc",
+                "grpcSettings": {
+                    "serviceName": "grpc-trojan",
+                    "acceptProxyProtocol": true,
+                    "multiMode": true
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VMESS_TCP",
+            "listen": "@vmess-tcp",
+            "protocol": "vmess",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "none",
+                "tcpSettings": {
+                    "acceptProxyProtocol": true,
+                    "header": {
+                        "type": "http",
+                        "request": {
+                            "path": [
+                                "/vmess-tcp"
+                            ]
+                        }
+                    }
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VMESS_WS",
+            "listen": "127.0.0.1",
+            "port": 3002,
+            "protocol": "vmess",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "path": "/vmess-ws"
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VMESS_HU",
+            "listen": "127.0.0.1",
+            "port": 5002,
+            "protocol": "vmess",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "httpupgrade",
+                "security": "none",
+                "httpupgradeSettings": {
+                    "path": "/vmess-hu"
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VMESS_GRPC",
+            "listen": "127.0.0.1",
+            "port": 4002,
+            "protocol": "vmess",
+            "settings": {
+                "clients": []
+            },
+            "streamSettings": {
+                "network": "grpc",
+                "security": "none",
+                "grpcSettings": {
+                    "acceptProxyProtocol": true,
+                    "serviceName": "grpc-vmess",
+                    "multiMode": true
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESS_TCP",
+            "listen": "@vless-tcp",
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "none",
+                "tcpSettings": {
+                    "acceptProxyProtocol": true,
+                    "header": {
+                        "type": "http",
+                        "request": {
+                            "path": [
+                                "/vless-tcp"
+                            ]
+                        }
+                    }
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESS_WS",
+            "listen": "127.0.0.1",
+            "port": 3003,
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "ws",
+                "security": "none",
+                "wsSettings": {
+                    "path": "/vless-ws"
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESS_HU",
+            "listen": "127.0.0.1",
+            "port": 5003,
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "httpupgrade",
+                "security": "none",
+                "httpupgradeSettings": {
+                    "path": "/vless-hu"
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESS_GRPC",
+            "listen": "127.0.0.1",
+            "port": 4003,
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "grpc",
+                "security": "none",
+                "grpcSettings": {
+                    "acceptProxyProtocol": true,
+                    "serviceName": "grpc-vless",
+                    "multiMode": true
+                }
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        },
+        {
+            "tag": "VLESSNTLS_FALLBACK",
+            "listen": "0.0.0.0",
+            "port": "80",
+            "protocol": "vless",
+            "settings": {
+                "clients": [],
+                "decryption": "none",
+                "fallbacks": [
+                    {
+                        "path": "/vmess-ws",
+                        "dest": 3002,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vmess-hu",
+                        "dest": 5002,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/trojan-ws",
+                        "dest": 3001,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/trojan-hu",
+                        "dest": 5001,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vless-ws",
+                        "dest": 3003,
+                        "xver": 1
+                    },
+                    {
+                        "path": "/vless-hu",
+                        "dest": 5003,
+                        "xver": 1
+                    },
+                    {
+                        "dest": "1997",
+                        "xver": 2
+                    },
+                    {
+                        "path": "/vmess-tcp",
+                        "dest": "@vmess-tcp",
+                        "xver": 2
+                    },
+                    {
+                        "path": "/vless-tcp",
+                        "dest": "@vless-tcp",
+                        "xver": 2
+                    }
+                ]
+            },
+            "streamSettings": {
+                "network": "tcp",
+                "security": "none"
+            },
+            "sniffing": {
+                "enabled": true,
+                "destOverride": [
+                    "http",
+                    "tls",
+                    "quic"
+                ]
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "tag": "direct",
+            "protocol": "freedom",
+            "settings": {
+                "domainStrategy": "UseIPv4"
+            }
+        },
+        {
+            "protocol": "blackhole",
+            "settings": {},
+            "tag": "block"
+        },
+        {
+            "protocol": "dns",
+            "settings": {
+                "nonIPQuery": "skip"
+            },
+            "tag": "dns-out"
+        }
+    ],
+    "policy": {
+        "levels": {
+            "0": {
+                "handshake": 2,
+                "connIdle": 120
+            }
+        }
+    }
+}
