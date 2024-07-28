@@ -113,7 +113,7 @@ cat /etc/openvpn/server/ca.crt >> /etc/openvpn/tcp.ovpn
 echo '</ca>' >> /etc/openvpn/tcp.ovpn
 
 # Copy config OpenVPN client ke home directory root agar mudah didownload ( TCP 1194 )
-cp /etc/openvpn/tcp.ovpn /home/vps/public_html/tcp.ovpn
+cp /etc/openvpn/tcp.ovpn /var/www/html/tcp.ovpn
 
 # masukkan certificatenya ke dalam config client UDP 2200
 echo '<ca>' >> /etc/openvpn/udp.ovpn
@@ -121,7 +121,7 @@ cat /etc/openvpn/server/ca.crt >> /etc/openvpn/udp.ovpn
 echo '</ca>' >> /etc/openvpn/udp.ovpn
 
 # Copy config OpenVPN client ke home directory root agar mudah didownload ( UDP 2200 )
-cp /etc/openvpn/udp.ovpn /home/vps/public_html/udp.ovpn
+cp /etc/openvpn/udp.ovpn /var/www/html/udp.ovpn
 
 # masukkan certificatenya ke dalam config client SSL
 echo '<ca>' >> /etc/openvpn/ssl.ovpn
@@ -129,7 +129,7 @@ cat /etc/openvpn/server/ca.crt >> /etc/openvpn/ssl.ovpn
 echo '</ca>' >> /etc/openvpn/ssl.ovpn
 
 # Copy config OpenVPN client ke home directory root agar mudah didownload ( SSL )
-cp /etc/openvpn/ssl.ovpn /home/vps/public_html/ssl.ovpn
+cp /etc/openvpn/ssl.ovpn /var/www/html/ssl.ovpn
 
 #firewall untuk memperbolehkan akses UDP dan akses jalur TCP
 
