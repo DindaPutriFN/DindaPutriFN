@@ -12,7 +12,7 @@
 url="https://raw.githubusercontent.com/DindaPutriFN/DindaPutriFN/main/openvpn/ali"
 
 # [ Memperbaiki Port OpenSSH ]
-[[ -e $(which curl) ]] && if [[ -z $(cat /etc/ssh/sshd_config | grep "22") ]]; then cat <(echo "Port 22") /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && mv /etc/ssh/sshd_config.tmp /etc/ssh/sshd_config; fi
+#if [[ -z $(cat /etc/ssh/sshd_config | grep "22") ]]; then cat <(echo "Port 22") /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && mv /etc/ssh/sshd_config.tmp /etc/ssh/sshd_config; fi
 echo "Port 3303" >> /etc/ssh/sshd_config
 
 # [ Merestart Service OpenSSH ]
@@ -33,6 +33,10 @@ apt install htop -y
 apt install cron -y
 apt install socat -y
 apt install openssl -y
+apt install ruby -y
+apt install lolcat -y
+gem install lolcat
+
 
 # [ Mengambil File Menu ]
 wget -O /usr/bin/menu "$url/1.sh"
@@ -61,6 +65,8 @@ sudo ufw default allow outgoing
 sudo ufw allow ssh
 sudo ufw allow http
 sudo ufw allow https
+sudo ufw allow 22/tcp
+sudo ufw allow 3303/tcp
 sudo ufw allow 8080/tcp
 sudo ufw allow 8443/tcp
 yes | sudo ufw enable
