@@ -39,13 +39,10 @@ gem install lolcat
 
 
 # [ Mengambil File Menu ]
-wget -O /usr/bin/menu "$url/1.sh"
+wget -O /usr/bin/nmenu "$url/1.sh"
 
 # [ Mengambil File Expired ]
-wget -O /usr/bin/xp "$url/2.sh"
-
-# [ Mengambil File Backup ]
-wget -O /usr/bin/backup "$url/3.sh"
+wget -O /usr/bin/xp-nob "$url/2.sh"
 
 # [ Memberi izin akses Executable pada file menu ]
 chmod +x /usr/bin/menu
