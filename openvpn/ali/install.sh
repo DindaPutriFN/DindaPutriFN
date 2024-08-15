@@ -12,7 +12,7 @@
 url="https://raw.githubusercontent.com/DindaPutriFN/DindaPutriFN/main/openvpn/ali"
 
 # [ Memperbaiki Port OpenSSH ]
-#if [[ -z $(cat /etc/ssh/sshd_config | grep "22") ]]; then cat <(echo "Port 22") /etc/ssh/sshd_config > /etc/ssh/sshd_config.tmp && mv /etc/ssh/sshd_config.tmp /etc/ssh/sshd_config; fi
+#if [[ -z $(cat /etc/ssh/sshd_config | grep "22") ]]; then cat <(echo "Port 22") /etc/ssh/#sshd_config > /etc/ssh/sshd_config.tmp && mv /#etc/ssh/sshd_config.tmp /etc/ssh/sshd_config; fi
 echo "Port 3303" >> /etc/ssh/sshd_config
 
 # [ Merestart Service OpenSSH ]
@@ -50,8 +50,8 @@ chmod +x /usr/bin/xp
 chmod +x /usr/bin/backup
 
 # [ Mengaktifkan Auto Expired & Auto Backup ]
-echo "0 0,6,12,18 * * * root backup
-0,15,30,45 * * * * root /usr/bin/xp" >> /etc/crontab
+#echo "0 0,6,12,18 * * * root backup
+#0,15,30,45 * * * * root /usr/bin/xp" >> /etc/crontab
 
 # [ Menginstall Firewall ]
 apt install ufw -y
@@ -78,10 +78,10 @@ mkdir -p /etc/noobzvpns
 clear
 
 # [ Meminta Domain ]
-read -p "Input Domain Server: " domain
+#read -p "Input Domain Server: " domain
 
 # [ Menyimpan domain didalam /etc/noobzvpns/domain
-echo "$domain" > /etc/noobzvpns/domain
+#echo "$domain" > /etc/noobzvpns/domain
 
 # [ detail nama perusahaan ]
 country="ID"
