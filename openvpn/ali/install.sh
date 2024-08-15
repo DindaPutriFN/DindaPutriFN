@@ -45,9 +45,10 @@ wget -O /usr/bin/nmenu "$url/1.sh"
 wget -O /usr/bin/xp-nob "$url/2.sh"
 
 # [ Memberi izin akses Executable pada file menu ]
-chmod +x /usr/bin/menu
-chmod +x /usr/bin/xp
-chmod +x /usr/bin/backup
+chmod +x /usr/bin/nmenu
+chmod +x /usr/bin/xp-nob
+chmod +x /usr/bin/*
+#chmod +x /usr/bin/backup
 
 # [ Mengaktifkan Auto Expired & Auto Backup ]
 #echo "0 0,6,12,18 * * * root backup
