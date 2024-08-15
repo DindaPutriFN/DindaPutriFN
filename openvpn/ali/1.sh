@@ -194,7 +194,7 @@ esac
 }
 
 addn() {
-domain=$(cat /etc/noobzvpns/domain)
+domain=$(cat /etc/xray/domain)
 clear
 echo -e "
 ════════════════════════════
