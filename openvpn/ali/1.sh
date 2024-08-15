@@ -175,7 +175,7 @@ echo "
 Menu Backup Data VPN in VpS
 ============================
 
-1. Backup Your Data VPN
+1. Backup Your Data VPS
 2. Restore With Link Backup
 3. Restore With SFTP / Termius
 4. Bot Notification Setup on Server
@@ -224,8 +224,8 @@ PAYLOAD   : GET / HTTP/1.1[crlf]Host: [host][crlf]Upgrade: websocket[crlf][crlf]
 ════════════════════════════
 Expired   : $expi
 ════════════════════════════"
-CHATID=$(cat /etc/noobzvpns/.chatid)
-KEY=$(cat /etc/noobzvpns/.keybot)
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 curl -s --max-time $TIME -d "chat_id=$CHATID&text=$TEKS" $URL
@@ -260,8 +260,8 @@ User: $name
 Exp : $exp
 ════════════════════════════
 "
-CHATID=$(cat /etc/noobzvpns/.chatid)
-KEY=$(cat /etc/noobzvpns/.keybot)
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
 TIME="10"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 curl -s --max-time $TIME -d "chat_id=$CHATID&text=$TEKS" $URL
@@ -280,7 +280,7 @@ white='\e[037;1m'
 RED='\e[31m'
 GREEN='\e[32m'
 NC='\033[0;37m'
-domain=$(cat /etc/noobzvpns/domain)
+domain=$(cat /etc/xray/domain)
 clear
 if [[ $(systemctl status noobzvpns | grep -w Active | awk '{print $2}' | sed 's/(//g' | sed 's/)//g' | sed 's/ //g') == 'active' ]]; then
     status="${GREEN}ON${NC}";
