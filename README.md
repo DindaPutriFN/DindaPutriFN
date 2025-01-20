@@ -31,4 +31,6 @@ Jika Anda memiliki pertanyaan atau ide untuk proyek baru, jangan ragu untuk meng
 - **Saluran**: [@Rerechan02](https://t.me/fn_project)
 - **GitHub**: [Rerechan02](https://github.com/DindaPutriFN)
 
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=DindaPutriFN&show_icons=true&count_private=true)
+
 Mari bersama-sama membangun ekosistem teknologi yang lebih baik!
